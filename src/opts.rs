@@ -15,6 +15,7 @@ pub struct Options {
     pub timeout: u64,
     pub user_agent: String,
     pub no_metadata: bool,
+    pub base_url: String,
 }
 
 const ASCII: &str = " \
@@ -56,6 +57,7 @@ impl Options {
             .args_from_usage("-s, --silent 'Suppresses verbosity'")
             .args_from_usage("-t, --timeout=[60] 'Adjust network request timeout'")
             .args_from_usage("-u, --user-agent=[Firefox] 'Set custom User-Agent string'")
+            .args_from_usage("-b, --base-url=[target] 'Set base URL for file targets'")
             // .args_from_usage("-v, --no-video 'Removes video sources'")
             .get_matches();
         let mut options: Options = Options::default();
@@ -84,6 +86,7 @@ impl Options {
             .value_of("user-agent")
             .unwrap_or(DEFAULT_USER_AGENT)
             .to_string();
+        options.base_url = app.value_of("base-url").unwrap_or("").to_string();
 
         options
     }

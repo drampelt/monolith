@@ -122,7 +122,7 @@ fn main() {
             0,
         ) {
             Ok((data, final_url, _media_type)) => {
-                base_url = final_url;
+                base_url = if options.base_url.is_empty() { final_url } else { options.base_url.clone() };
                 dom = html_to_dom(&String::from_utf8_lossy(&data));
             }
             Err(_) => {
